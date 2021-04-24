@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+    <form class="d-flex">
+        <div class="col-md-8">
+            <input class="form-control me-2" type="search" placeholder="To-Do" aria-label="Search">
+        </div>
+        <button class="btn btn-outline-secondary" type="submit">Add To-Do</button>
+    </form>
+    <br>
+    <br>
+    {% if list %}
+    <table class="table table-hover table-bordered">
+        {% for lists in list %}
+            {% if lists.completed %}
+                <tr class="table-secondary">
+                    <td >{{lists.item}}</td>
+                    <td><center>{{lists.completed}}<center></td>
+                    <td><center>Delete<center></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td >{{lists.item}}</td>
+                    <td><center>{{lists.completed}}<center></td>
+                    <td><center>Delete<center></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+<br>
+{% endblock content %}
+
