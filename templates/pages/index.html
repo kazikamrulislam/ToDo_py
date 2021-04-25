@@ -2,9 +2,19 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-    <form class="d-flex">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %} <br><br>
+
+    <form class="d-flex" method="POST">
+        {% csrf_token %}
         <div class="col-md-8">
-            <input class="form-control me-2" type="search" placeholder="To-Do" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="To-Do" aria-label="Search" name="item">
         </div>
         <button class="btn btn-outline-secondary" type="submit">Add To-Do</button>
     </form>
@@ -15,15 +25,15 @@
         {% for lists in list %}
             {% if lists.completed %}
                 <tr class="table-secondary">
-                    <td >{{lists.item}}</td>
-                    <td><center>{{lists.completed}}<center></td>
-                    <td><center>Delete<center></td>
+                    <td class= "striker"><a href="{% url 'edit' lists.id%}"> {{lists.item}} </a></td>
+                    <td><center><a href="{% url 'uncross' lists.id%}">Uncross</a><center></td>
+                    <td><center> <a href= "{% url 'delete' lists.id %}"> Delete</a><center></td>
                 </tr>
             {% else %}
                 <tr>
-                    <td >{{lists.item}}</td>
-                    <td><center>{{lists.completed}}<center></td>
-                    <td><center>Delete<center></td>
+                    <td ><a href="{% url 'edit' lists.id%}"> {{lists.item}} </a></td>
+                    <td><center><a href="{% url 'cross_off' lists.id%}">Cross_off</a><center></td>
+                    <td><center> <a href= "{% url 'delete' lists.id %}"> Delete</a><center></td>
                 </tr>
             {% endif %}
         {% endfor %}

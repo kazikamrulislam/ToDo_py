@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Edit Item{% endblock %}
+{% block content %}
+    {% if list %}
+        <form class="d-flex" method="POST">
+            {% csrf_token %}
+            <div class="col-md-8">
+                <input class="form-control me-2" type="search" placeholder="{{list.item}}" value= "{{list.item}}" aria-label="Search" name="item">
+                <input class="form-control me-2" type="hidden" value= "{{ list.completed }}"  name="completed">
+            </div>            
+            <button class="btn btn-outline-secondary" type="submit">Edit item</button>
+        </form>
+    {% endif %}
+{% endblock %}
